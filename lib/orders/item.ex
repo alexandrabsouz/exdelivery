@@ -1,30 +1,31 @@
 defmodule Exlivery.Orders.Item do
-    @categories [
-        :pizza, 
-        :hamburguer, 
-        :sobremesa,
-        :carne,
-        :prato_feito,
-        :japonesa
-    ]
+  @categories [
+    :pizza,
+    :hamburguer,
+    :sobremesa,
+    :carne,
+    :prato_feito,
+    :japonesa
+  ]
 
-    @keys [:description, :category, :unity_price, :quantity]
+  @keys [:description, :category, :unity_price, :quantity]
 
-    @enforce_keys @keys
+  @enforce_keys @keys
 
-    defstruct @keys
+  defstruct @keys
 
-    def build(description, category, unity_price, quantity) when quantity > 0 and category in @categories do
-        {:ok, %__MODULE__{
-            description: description,
-            category: category,
-            unity_price: unity_price,
-            quantity: quantity
-        }}
-    end
+  def build(description, category, unity_price, quantity)
+      when quantity > 0 and category in @categories do
+    {:ok,
+     %__MODULE__{
+       description: description,
+       category: category,
+       unity_price: unity_price,
+       quantity: quantity
+     }}
+  end
 
-    def build(_description, _category, _unity_price, _quantity) do
-        {:error, "inválid parameters"}
-    end
-
+  def build(_description, _category, _unity_price, _quantity) do
+    {:error, "inválid parameters"}
+  end
 end
