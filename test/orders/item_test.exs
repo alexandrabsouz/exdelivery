@@ -33,8 +33,8 @@ defmodule Exlivery.Orders.ItemTeste do
     test "when there is an inválid price, returns an error" do
       response = Item.build("Pizza de Peperoni", :pizza, "banana", 1)
 
-      expected_response =  {:error, "inválid price"}
-      
+      expected_response = {:error, "inválid price"}
+
       assert response == expected_response
     end
   end
