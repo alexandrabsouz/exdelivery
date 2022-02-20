@@ -9,7 +9,7 @@ defmodule Exlivery.Factory do
   alias Exlivery.Users.User
 
   def user_factory do
-    %User{
+    %{
       name: "Peixonalta Aquatico",
       email: "peixonalta_aquatico@email.com",
       cpf: "45634578698",
