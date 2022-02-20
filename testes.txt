@@ -1,0 +1,5 @@
+user_params = %{name: "Peixonalta Aquatico",email: "peixonalta_aquatico@email.com",cpf: "45634578698",age: 23, address: "Mar Vermelho, Lado A"}
+
+items = [%{category: :pizza, description: "Pizza de Peperoni", unity_price: 15.88, quantity: 3}, %{category: :japonesa, description: "yakisoba", unity_price: 10.00, quantity: 5}] 
+
+Exlivery.create_or_update_order(%{user_cpf: "45634578698", items: items})  
