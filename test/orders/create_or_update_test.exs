@@ -71,7 +71,6 @@ defmodule Exlivery.Orders.CreateOrUpdateTest do
          user_cpf: cpf,
          items: []
         }
-
         response = CreateOrUpdateOrder.call(params)
 
         assert {:error, "inválid parameters"} = response
