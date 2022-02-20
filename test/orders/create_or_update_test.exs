@@ -3,7 +3,6 @@ defmodule Exlivery.Orders.CreateOrUpdateTest do
 
   import Exlivery.Factory
 
-  alias Exlivery.Orders.Agent, as: OrderAgent
   alias Exlivery.Orders.CreateOrUpdate, as: CreateOrUpdateOrder
   alias Exlivery.Users.Agent, as: UserAgent
 

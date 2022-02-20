@@ -29,7 +29,7 @@ defmodule Exlivery.Users.AgentTest do
 
       expected_response = {
         :ok,
-        %Exlivery.Users.User{
+        %User{
           address: "Mar Vermelho, Lado A",
           age: 23,
           cpf: "345674556789",
