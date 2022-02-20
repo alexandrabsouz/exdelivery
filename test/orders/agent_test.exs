@@ -3,11 +3,6 @@ defmodule Exlivery.Orders.AgentTest do
 
   alias Exlivery.Orders.Agent, as: OrderAgent
 
-  alias Exlivery.Orders.{
-    Order,
-    Item
-  }
-
   import Exlivery.Factory
 
   describe "save/1" do

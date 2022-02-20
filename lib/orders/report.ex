@@ -24,6 +24,6 @@ defmodule Exlivery.Orders.Report do
   end
 
   defp item_string(%Item{category: category, quantity: quantity, unity_price: unity_price}) do
-    " #{category}, #{quantity}, #{unity_price}"
+    " #{category}, #{quantity}, #{unity_price},"
   end
 end

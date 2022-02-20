@@ -48,7 +48,6 @@ defmodule Exlivery.Orders.CreateOrUpdateTest do
     end
 
     test "when there is no user with given cpf, returns an error", %{
-      user_cpf: cpf,
       item1: item1,
       item2: item2
     } do

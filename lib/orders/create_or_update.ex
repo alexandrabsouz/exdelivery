@@ -1,5 +1,5 @@
 defmodule Exlivery.Orders.CreateOrUpdate do
-  alias Exlivery.Orders.Agent, as: OrdersAgent
+  alias Exlivery.Orders.Agent, as: OrderAgent
   alias Exlivery.Orders.Item
   alias Exlivery.Orders.Order
   alias Exlivery.Users.Agent, as: UsersAgent
@@ -8,7 +8,7 @@ defmodule Exlivery.Orders.CreateOrUpdate do
     with {:ok, user} <- UsersAgent.get(user_cpf),
          {:ok, items} <- build_items(items),
          {:ok, order} <- Order.build(user, items) do
-      OrdersAgent.save(order)
+      OrderAgent.save(order)
     else
       error -> error
     end
