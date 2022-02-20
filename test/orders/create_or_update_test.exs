@@ -1,45 +1,81 @@
-# defmodule Exlivery.Users.CreateOrUpdateTest do
-#     use ExUnit.Case
+defmodule Exlivery.Orders.CreateOrUpdateTest do
+    use ExUnit.Case
 
-#     alias Exlivery.Users.Agent, as: UserAgent
-#     alias Exlivery.Users.CreateOrUpdate, as: CreateOrUpdateUser
+    import Exlivery.Factory
 
-#     describe "call/1" do
-#       setup do
-#         UserAgent.start_link(%{})
-#         :ok
-#       end
+    alias Exlivery.Orders.Agent, as: OrderAgent
+    alias Exlivery.Orders.CreateOrUpdate, as: CreateOrUpdateOrder
+    alias Exlivery.Users.Agent, as: UserAgent
 
-#       test "when all params are valid, saves the user" do
-#         params = %{
-#           name: "Alexandra Souza",
-#           address: "Rua do Infinito",
-#           email: "alexa@email.com",
-#           cpf: "00000000000",
-#           age: 23
-#         }
+    describe "call/1" do
+      
+      setup do
+        Exlivery.start_agents()
 
-#         response = CreateOrUpdateUser.call(params)
+        cpf = "34898237487"
+        user = build(:user, cpf: cpf)
+        UserAgent.save(user)
 
-#         expected_response = {:ok, "user info has been saved"}
+        item1 = %{
+          category: :pizza,
+          description: "Pizza de Peperoni",
+          quantity: 1,
+          unity_price: Decimal.new("34.78")
+        }
 
-#         assert response == expected_response
-#       end
+        item2 = %{
+          category: :pizza,
+          description: "Pizza de Calabreza",
+          quantity: 5,
+          unity_price: Decimal.new("17.78")
+        }
 
-#       test "when  params are valid, saves the user" do
-#         params = %{
-#           name: "Alexandra Souza",
-#           address: "Rua do Infinito",
-#           email: "alexa@email.com",
-#           cpf: "00000000000",
-#           age: 10
-#         }
+        {:ok, user_cpf: cpf, item1: item1, item2: item2}
+      end
 
-#         response = CreateOrUpdateUser.call(params)
+      test "when all params are valid, saves the order", %{user_cpf: cpf, item1: item1, item2: item2} do
+        params = %{
+         user_cpf: cpf,
+         items: [item1, item2]
+        }
 
-#         expected_response = {:error, "inválid parameters"}
+        response = CreateOrUpdateOrder.call(params)
 
-#         assert response == expected_response
-#       end
-#     end
-#   end
+        assert {:ok, _uuid} = response
+      end
+
+      test "when there is no user with given cpf, returns an error", %{user_cpf: cpf, item1: item1, item2: item2} do
+        params = %{
+          user_cpf: "00000000000",
+          items: [item1, item2]
+         }
+
+        response = CreateOrUpdateOrder.call(params)
+
+        assert {:error, "User not found"} = response
+      end
+
+      test "when quantity <= 0, returns an error", %{user_cpf: cpf, item1: item1, item2: item2} do
+        params = %{
+         user_cpf: cpf,
+         items: [%{item1 | quantity: 0}, item2]
+        }
+
+        response = CreateOrUpdateOrder.call(params)
+
+        assert {:error, "Invalid items"} = response
+      end
+
+      test "whenasre not items, returns an error", %{user_cpf: cpf} do
+        params = %{
+         user_cpf: cpf,
+         items: []
+        }
+
+        response = CreateOrUpdateOrder.call(params)
+
+        assert {:error, "inválid parameters"} = response
+      end
+   end
+end
+
